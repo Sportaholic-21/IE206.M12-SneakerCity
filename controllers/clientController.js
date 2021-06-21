@@ -1,5 +1,5 @@
 const {Category} = require("../models/categoryModel");
-const {Product} = require("../models/productModel")
+const { restart } = require('nodemon');
 exports.getHome = async (req, res, next) => {
   try {
     // Render template
@@ -35,6 +35,48 @@ exports.getProducts = async (req, res, next) => {
     return res.status(404).json({ status: "fail", message: err });
   }
 
+  next();
+};
+
+exports.sortProducts = async (req, res, next) => {
+  try{
+    const q = req.query.q;
+    var sort = [];
+    if(q == "newest"){
+      sort = await (Product.find().sort({createdDate: -1}));
+    }
+    if(q == "Lowest"){
+      sort = await (Product.find().sort({price: 1}));
+    }
+    if(q == "Highest"){
+      sort= await (Product.find().sort({price: -1}));
+    }
+    res.status(200).render("pages/products", {
+      title: "Products", product: sort
+    });
+  } catch(err){
+    return res.status(404).json({status: "fail", message: err});
+  }
+}
+
+exports.searchProducts = async (req, res, next) =>{
+  try{
+    const q = req.query.q;
+    const matchedProducts = await Product.find();
+    var product =[];
+    console.log(matchedProducts);
+    console.log(q);
+    for(i =0; i < matchedProducts.length; i++){
+      if(matchedProducts[i].name.toUpperCase().includes(q.toUpperCase())){
+        product.push(matchedProducts[i]);
+      }
+    }
+    res.status(200).render("pages/products", {
+      title: "Products", product: product
+    });
+   } catch (err){
+       return res.status(400).json({status: "fail", message: err});
+       }
   next();
 };
 

@@ -1039,7 +1039,7 @@ body {
   .brandinfo__filter-btn {
     margin-right: 1.2rem;
     min-width: 12.4rem;
-    height: 3rem;
+    height: 3.5rem;
     border-radius: .9rem;
     border-width: 0;
     padding: 0 1.2rem;
@@ -1087,23 +1087,11 @@ body {
       top: 0.1rem; }
   .brandinfo__select-input {
     display: block;
-    padding: 0.4rem 0; }
+    padding: 0.4rem 0;
+    background-color: #BDBDBD;
+    border-width: 0; }
     .brandinfo__select-input:hover {
       color: #757575; }
-  .brandinfo__tag-container {
-    flex: auto;
-    padding: 2rem;
-    margin: 10rem 5rem; }
-  .brandinfo__tag-size {
-    padding: 1rem;
-    font-weight: 600;
-    color: #FF7D00; }
-  .brandinfo__tag {
-    border-bottom: 0.1rem solid #BDBDBD;
-    padding: 1rem;
-    margin: 0.2rem; }
-    .brandinfo__tag p:hover {
-      color: #FF7D00; }
   .brandinfo__float {
     align-items: flex-start;
     display: flex; }
@@ -1116,7 +1104,9 @@ body {
       width: 85%;
       height: auto; }
   .brandinfo__product-container {
-    margin: 0.1rem; }
+    margin: 10rem; }
+  .brandinfo__product {
+    padding-right: 2rem; }
 
 .policy {
   margin-bottom: 15rem; }

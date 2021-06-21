@@ -69,7 +69,7 @@
       &__filter-btn{
         margin-right:1.2rem;
         min-width:12.4rem;
-        height: 3rem;
+        height: 3.5rem;
         border-radius: .9rem;
         border-width: 0;
         padding: 0 1.2rem;
@@ -130,29 +130,11 @@
       &__select-input{
         display: block;
         padding: 0.4rem 0;
+        background-color: $color-dark-4;
+        border-width: 0;
         &:hover{
           color:$color-dark-2;
         }
-      }
-      &__tag-container{
-        flex: auto;
-        padding: 2rem;
-        margin: 10rem 5rem;
-      }
-      &__tag-size{
-        padding: 1rem;
-        font-weight: 600;
-        color: $color-primary-orange;
-      }
-      &__tag{
-        border-bottom: 0.1rem solid $color-dark-4;
-        padding: 1rem;
-        margin: 0.2rem;
-        & p{
-        &:hover{
-          color:$color-primary-orange;
-        }
-      }
       }
       &__float{
         align-items:flex-start;
@@ -169,7 +151,7 @@
     }
       }
       &__product-container{
-        margin:0.1rem;
+        margin: 10rem;
       }
 }
 
