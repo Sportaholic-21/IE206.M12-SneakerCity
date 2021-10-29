@@ -35,7 +35,15 @@ const productSchema = schema({
   //transaction: { type: Schema.ObjectId, ref: 'Transaction', required: true },
   category: Array,
   shoeSize: { type: [String] },
-  sold: {type: Number, default: 0}
+  sold: {type: Number, default: 0},
+  // review: [{
+  //   user: {type: schema.ObjectId, ref: 'User', required: true},
+  //   date: {type: Date, default: Date.now()},
+  //   star: {type: Number},
+  //   content: {type: String},
+  //   usefulness: {type: Number},
+  //   comment: [{type: String}]
+  // }]
 });
 
 productSchema.virtual("coverImagePath").get(function () {
