@@ -10,6 +10,7 @@ router.put("/product/edit/:id",adminController.putUpdateProduct);
 
 //~~~~~~~~USER~~~~~~~~~~~~
 
+
 //~~~~~~~~ORDER~~~~~~~~~~~
 router.route("/order/:id")
     .delete(adminController.deleteOrder)

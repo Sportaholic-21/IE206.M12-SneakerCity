@@ -100,18 +100,6 @@
   </div>
 </body>
 <%- include('../../template/footer.ejs'); -%>
-    <script>
-      $(document).on("click", ".deleteBtn", function () {
-        var id = $(this).data("id");
-        // alert(id);
-        var link = $(this).data("link");
-        $("#exampleModal #deleteBtnHref").attr(
-          "href",
-          link + "/deletedb/" + id
-        );
-        $("#exampleModal #idTeam").text(id);
-      });
-    </script>
     <script> //show checkbox
       const delay = ms => new Promise(res => setTimeout(res, ms));
       var masterBtn = $("#master-checkbox")

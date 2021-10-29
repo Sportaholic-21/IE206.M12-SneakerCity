@@ -132,9 +132,10 @@ exports.getEditProduct = async (req, res, next) => {
 // users
 exports.getUsers = async (req, res, next) => {
   try {
-    // Render template
+    const users = await User.find();
     return res.status(200).render("admin/pages/user/user", {
       title: "Users",
+      users: users
     });
   } catch (err) {
     return res.status(404).json({ status: "fail", message: err });
@@ -273,6 +274,17 @@ exports.deleteOrder = async (req,res) => {
     return res.send("success");
   } catch (error) {
     return res.send(error);
+  }
+}
+
+exports.deleteUser = async (req,res) => {
+  let user
+  try {
+    user = await User.findById(req.params.id);
+    await user.remove();
+    return res.redirect("/admin/users?status=Success");
+  } catch {
+    return res.redirect("/admin/users?status=Fail");
   }
 }
 

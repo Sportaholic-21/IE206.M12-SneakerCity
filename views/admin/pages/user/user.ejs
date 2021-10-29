@@ -33,6 +33,7 @@
                   <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                     <a class="dropdown-item" href="#">Admin</a>
                     <a class="dropdown-item" href="#">User</a>
+                    <a class="dropdown-item" href="#">All</a>
                   </div>
                 </div>
                 <div class="col">
@@ -52,42 +53,10 @@
             </form>
           </div>
 
-          <table class="table table-hover">
-            <thead>
-              <tr>
-                <th scope="col">ID</th>
-                <th scope="col">Image</th>
-                <th scope="col">Username</th>
-                <th scope="col">Email</th>
-                <th scope="col">Full name</th>
-                <th scope="col">Address</th>
-                <th scope="col">Phone</th>
-                <th scopr="col">Role</th>
-                <th scopr="col">Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr data-toggle="modal" data-target="#exampleModal">
-                <th scope="row">1</th>
-                <td style="width: 20px">
-                  <img
-                    src="/images/giay-nike-chinh-hang.jpg"
-                    alt="userImage"
-                    class="img-fluid"
-                  />
-                </td>
-                <td>dunghocgioi</td>
-                <td>dunghocgioi@gmail.com</td>
-                <td>Phan Hoàng Dung</td>
-                <td>District 1, Ho Chi Minh</td>
-                <td>0945738643</td>
-                <td class="text-primary">User</td>
-                <td>
-                  <button type="button" class="btn btn-danger">Delete</button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+          <div>
+
+          </div>
+          <%- include('../../template/_cardUser.ejs') %> 
 
           <nav aria-label="Page navigation example" class="float-right">
             <ul class="pagination">
@@ -111,7 +80,8 @@
         </div>
       </div>
     </div>
-    <!--Popup-->
+
+    <!--Delete modal-->
     <div
       class="modal fade"
       id="exampleModal"
@@ -123,7 +93,7 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+            <h5 class="modal-title" id="exampleModalLabel">Xác nhận xóa</h5>
             <button
               type="button"
               class="close"
@@ -134,26 +104,7 @@
             </button>
           </div>
           <div class="modal-body">
-            <div class="form-check form-check-inline">
-              <input
-                class="form-check-input"
-                type="radio"
-                name="inlineRadioOptions"
-                id="inlineRadio1"
-                value="option1"
-              />
-              <label class="form-check-label" for="inlineRadio1">ADMIN</label>
-            </div>
-            <div class="form-check form-check-inline">
-              <input
-                class="form-check-input"
-                type="radio"
-                name="inlineRadioOptions"
-                id="inlineRadio2"
-                value="option2"
-              />
-              <label class="form-check-label" for="inlineRadio2">USER</label>
-            </div>
+            Chắc chắn xóa người dùng <span id="idTeam"></span>?
           </div>
           <div class="modal-footer">
             <button
@@ -163,11 +114,28 @@
             >
               Close
             </button>
-            <button type="button" class="btn btn-primary">Save changes</button>
+            <form method="post" id="deleteBtnHref">
+              <input type="submit" class="btn btn-danger" value="Xóa" />
+            </form>
           </div>
         </div>
       </div>
     </div>
+    <!--End of -->
   </body>
   <%- include('../../template/footer.ejs'); -%>
+  <!--Delete-->
+  <script> 
+    $(document).on("click", ".deleteBtn", function () {
+      var id = $(this).data("id");
+      var name = $(this).data("name");
+      //alert(name);
+      var link = $(this).data("link");
+      $("#exampleModal #deleteBtnHref").attr(
+        "action",
+        link + "delete/" + id + "?_method=DELETE"
+      );
+      $("#exampleModal #idTeam").text(name);
+    });
+  </script>
 </html>
