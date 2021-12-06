@@ -16,6 +16,11 @@ const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
 
 const stripe = require("stripe")(stripeSecretKey);
 
+const paypal = require('@paypal/checkout-server-sdk');
+
+const payPalClient = require('../payPalClient');
+
+
 exports.addToCart = async (req, res, next) => {
   try {
     var productId = req.params.id;
@@ -352,18 +357,6 @@ exports.postPaymentDone = async (req, res) => {
     })
     await item.save();
   }
-  if (type == "card") {
-    await stripe.charges
-      .create({
-        amount: total,
-        source: req.body.token,
-        currency: "usd",
-      })
-      .catch(function (err) {
-        console.log(err);
-        res.status(500).end();
-      });
-  }
   try {
     const trans = new Transaction({
       total: total,
@@ -388,6 +381,33 @@ exports.postPaymentDone = async (req, res) => {
     return res.status(500).end()
   }
 
+}
+
+exports.paypal = async (req, res) => {
+  // 3. Call PayPal to set up a transaction
+  const request = new paypal.orders.OrdersCreateRequest();
+  request.prefer("return=representation");
+  request.requestBody({
+    intent: 'CAPTURE',
+    purchase_units: [{
+      amount: {
+        currency_code: 'USD',
+        value: req.body.value
+      }
+    }]
+  });
+  let order;
+  try {
+    order = await payPalClient.client().execute(request);
+  } catch (err) {
+    // 4. Handle any errors from the ca
+    console.error(err);
+    return res.send(500);
+  }
+  // 5. Return a successful response to the client with the order ID
+  res.status(200).json({
+    orderID: order.result.id
+  });
 }
 
 exports.autoSearchComplete = async (req, res) => {

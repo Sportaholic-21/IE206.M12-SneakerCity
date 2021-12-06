@@ -26,6 +26,8 @@ router
   .post(backendClientController.postPaymentDone)
   .delete(backendClientController.removeCart)
 
+router.post("/paypal", backendClientController.paypal)
+
 router
   .route("/feedback")
   .post(backendClientController.addFeedback)

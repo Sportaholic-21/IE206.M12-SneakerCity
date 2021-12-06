@@ -81,6 +81,8 @@ app.use(function (req, res, next) {
   next();
 });
 
+
+
 // Sử dụng flash
 //  -- Kết nối đến flash
 app.use(flash())

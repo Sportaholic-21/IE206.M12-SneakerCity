@@ -11,7 +11,7 @@ dotenv.config({ path: "./config.env" });
 const countryStateCity = require('country-state-city');
 
 
-const stripeSecretKey = process.env.STRIPE_SECRET_KEY
+const paypal_clientID = process.env.PAYPAL_CLIENT_ID
 const stripePublicKey = process.env.STRIPE_PUBLIC_KEY
 
 
@@ -254,6 +254,7 @@ exports.getPayment = async (req, res, next) => {
       products: cart.generateArr(),
       //user: user,
       stripePublicKey: stripePublicKey,
+      paypal_clientID: paypal_clientID,
       countries: countries
     });
   } catch (err) {
