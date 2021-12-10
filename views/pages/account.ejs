@@ -13,9 +13,8 @@
         <hr />
         <% if (session.user && typeof session.user != 'undefined') {%>
         <form
-          method="POST"
-          action="/account/updateDB/"
-          class="info_container_flex flex-center-column"
+        class="needs-validation" method="POST"
+        action="/client/api/account/updateUser"
         >
           <div class="info_container_style">
             <div class="d-flex">
@@ -73,16 +72,20 @@
                 <input
                   type="text"
                   name="country"
+                  id="Country"
+                  value="<%= session.user.address.country%>"
                   class="address_info_style"
                 />
               </div>
 
               <div class="info_container_style">
-                <label for="addr_info">Provinces:</label><br />
+                <label for="addr_info">City:</label><br />
                 <input
                   type="text"
-                  name="provinces"
+                  id="City"
+                  name="city"
                   class="address_info_style"
+                  value="<%= session.user.address.city%>"
                 />
               </div>
             </div>
@@ -92,8 +95,10 @@
                 <label for="addr_info">Districts:</label><br />
                 <input
                   type="text"
-                  name="districts"
+                  name="detail"
+                  id="Detail"
                   class="address_info_style"
+                  value="<%= session.user.address.detail %>"
                 />
               </div>
 
@@ -102,7 +107,7 @@
                 <input
                   type="text"id="AddrInfo"
                   name="AddrInfo"
-                  value="<%= session.user.address.number%> <%= session.user.address.ward%> <%= session.user.address.city%>"
+                  value="<%= session.user.address.detail%>, <%= session.user.address.city%>, <%= session.user.address.country%>"
                   class="address_info_style"
                 />
               </div>

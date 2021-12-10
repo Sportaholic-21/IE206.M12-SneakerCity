@@ -12,7 +12,7 @@ router.put("/product/edit/:id",adminController.putUpdateProduct);
 router.post("/user/add", adminController.postAddUser)
 
 //~~~~~~~~Category~~~~~~~~~
-router.put("/categories", adminController.putUpdateCate);
+router.put("/category/edit/:id", adminController.putUpdateCate);
 router.post("/category/add",adminController.postAddCate)
 router.delete("/category/delete/", adminController.deleteCategory);
 

@@ -94,6 +94,29 @@ exports.updateCart = async (req, res, next) => {
   next();
 };
 
+// Update user
+
+exports.updateUser = async (req,res,next) => {
+  let user
+  try {
+    user = await User.findOne(req.body.userName);
+    console.log("hi",user);
+    user.fullName = req.body.FullName;
+    user.phone = req.body.PhoneNum;
+    user.email = req.body.Email;
+    user.address= {country: req.body.Country, city: req.body.City, detail: req.body.Detail};
+    // user.address.city = req.body.City;
+    // user.address.detail = req.body.Detail;
+    console.log("sau khi edit", user);
+    await user.save()
+    return res.redirect("/account?status=Success");
+  } catch (err){
+    console.log(err)
+    return res.redirect("/account?status=Fail")
+  } 
+};
+
+
 exports.addToWishlist = async (req, res, next) => {
   try {
     var productId = req.params.id;

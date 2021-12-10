@@ -112,7 +112,7 @@
             </button>
           </div>
           <div class="modal-body">
-            Chắc chắn xóa Category? <span id="idTeam"></span>?
+            Chắc chắn xóa Category<span id="idTeam"></span>?
           </div>
           <div class="modal-footer">
             <button
@@ -140,17 +140,18 @@
             </button>
           </div>
           <div class="modal-body">
-            <form enctype="application/x-www-form-urlencoded" class="needs-validation" method="POST"
-            action="/admin/api/category/<%= category.name %>?_method=PUT">
               <div class="form-group mx-sm-3 mb-2" >
                 <label for="cateName">Category</label>
                 <input type="text" class="form-control" id="cateName" placeholder="Enter new category name">
-              </div>
             </form>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary">Save changes</button>
+            <button type="submit" id="btnSave" class="btn btn-primary btn-save" 
+            data-id="cateName"
+            data-name="<%= category.name %>" 
+            data-link="category/"
+            >Save changes</button>
           </div>
         </div>
       </div>
@@ -168,6 +169,19 @@
         link + "delete/" + id + "?_method=DELETE"
       );
       $("#exampleModal #idTeam").text(name);
+    });
+  </script>
+  <script> 
+    $(document).on("click", ".btn-save", function () {
+      var id = $(this).data("id");
+      var name = $(this).data("name");
+      //alert(name);
+      var link = $(this).data("link");
+      $("#Edit #btnSave").attr(
+        "action",
+        link + "edit/" + id 
+      );
+      $("#Edit #idTeam").text(name);
     });
   </script>
 </html>
