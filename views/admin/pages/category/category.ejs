@@ -61,13 +61,12 @@
           <h4 class="text-info pb-2 mt-5">Category List</h4>
           <table class="table table-hover" id="table">
             <tr>
-              <th>ID</th>
               <th>Category Name</th>
               <th>&nbsp;</th>
             </tr>
-
+            <% category.forEach(category =>{ %>
             <tr>
-              <td></td>
+              <td><%=category.name%></td>
               <td></td>
               <td>
                 <button class="btn btn-success" data-toggle="modal" data-target="#Edit">Edit</button>
@@ -75,15 +74,58 @@
                   class="btn btn-danger ml-2 deleteBtn"
                   id="deleteBtn"
                   data-toggle="modal"
-                  data-target="#deleteModal"
-                  data-id=" "
+                  data-target="#exampleModal"
+                  data-id="<%= category.id %>"
+                  data-name="<%= category.name %>"
                   data-link="category/"
                 >
                   Delete
                 </button>
+                
               </td>
             </tr>
+            <% }) %>
           </table>
+        </div>
+      </div>
+    </div>
+    <!-- Delete modal -->
+    <div
+      class="modal fade"
+      id="exampleModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Xác nhận xóa</h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            Chắc chắn xóa Category? <span id="idTeam"></span>?
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              Close
+            </button>
+            <form method="post" id="deleteBtnHref">
+              <input type="submit" class="btn btn-danger" value="Xóa" />
+            </form>
+          </div>
         </div>
       </div>
     </div>
@@ -98,24 +140,34 @@
             </button>
           </div>
           <div class="modal-body">
-            <form>
+            <form enctype="application/x-www-form-urlencoded" class="needs-validation" method="POST"
+            action="/admin/api/category/<%= category.name %>?_method=PUT">
               <div class="form-group mx-sm-3 mb-2" >
-                <label for="exampleInputEmail1">ID</label>
-                <input type="text" class="form-control" id="editID" placeholder="Enter ID">
-              </div>
-              <div class="form-group mx-sm-3 mb-2" >
-                <label for="exampleInputEmail1">Catagory</label>
-                <input type="text" class="form-control" id="editCatagory" placeholder="Enter Catagory">
+                <label for="cateName">Category</label>
+                <input type="text" class="form-control" id="cateName" placeholder="Enter new category name">
               </div>
             </form>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Save changes</button>
+            <button type="submit" class="btn btn-primary">Save changes</button>
           </div>
         </div>
       </div>
     </div>
   </body>
   <%- include('../../template/footer.ejs'); -%>
+  <script> 
+    $(document).on("click", ".deleteBtn", function () {
+      var id = $(this).data("id");
+      var name = $(this).data("name");
+      //alert(name);
+      var link = $(this).data("link");
+      $("#exampleModal #deleteBtnHref").attr(
+        "action",
+        link + "delete/" + id + "?_method=DELETE"
+      );
+      $("#exampleModal #idTeam").text(name);
+    });
+  </script>
 </html>

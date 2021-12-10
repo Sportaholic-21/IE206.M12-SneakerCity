@@ -10,6 +10,9 @@ router.put("/product/edit/:id",adminController.putUpdateProduct);
 
 //~~~~~~~~USER~~~~~~~~~~~~
 
+//~~~~~~~~Category~~~~~~~~~
+router.put("/categories", adminController.putUpdateCate);
+router.delete("/category/delete/", adminController.deleteCategory);
 
 //~~~~~~~~ORDER~~~~~~~~~~~
 router.route("/order/:id")

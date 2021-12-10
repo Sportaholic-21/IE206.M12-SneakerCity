@@ -41,6 +41,7 @@
     "passport": "^0.4.1",
     "passport-http": "^0.3.0",
     "passport-local": "^1.0.0",
+    "paypal": "^1.0.1",
     "replace": "^1.2.1",
     "request": "^2.88.2",
     "serve-favicon": "^2.5.0",

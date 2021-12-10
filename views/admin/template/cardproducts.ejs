@@ -8,8 +8,7 @@
         <th scope="col">Quantity In Stock</th>
         <th scope="col">IsNew</th>
         <th scope="col">Sales</th>
-        <th scopr="col" id="action-header">Action</th>
-        <th scope="col"><input type="checkbox" id="master-checkbox"></th>
+        <th scope="col" id="action-header">Action</th>
       </tr>
     </thead>
     <tbody>
@@ -63,6 +62,7 @@
               data-target="#exampleModal" data-id="<%= product.id %>" data-name="<%= product.name %>" data-link="product/">
               Delete
             </button>
+          <a type="button" href="#" class="ml-2 mt-2 col-7 btn btn-primary btn-share">Share</a>
         </td>
         <td class="check-product align-middle d-none">
           <input type="checkbox" data-id="<%= product.id %>">
@@ -71,3 +71,15 @@
       <% }) %>
     </tbody>
   </table>
+
+  <script>
+    var text = encodeURIComponent("Check this new products!!!");
+    var url = encodeURIComponent(window.location.href);
+    var params = "menubar=no,toolbar=no,status=0,width=570,height=570";
+    var image = document.querySelector('pin-image');
+    var share = document.querySelector('.btn-share');
+    share.addEventListener('click', function (ev){
+      let shareUrl = `http://www.facebook.com/sharer/sharer.php?u=${url}`;
+          window.open(shareUrl,"NewWindow" , params);  
+    });
+  </script>

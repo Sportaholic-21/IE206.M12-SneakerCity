@@ -28,5 +28,6 @@ router.use("/feedbacks", authRole, adminController.getFeedbacks);
 //delete
 router.delete("/product/delete/:id", authRole, adminController.delete); 
 router.delete("/user/delete/:id", authRole, adminController.deleteUser);
+router.delete("/category/delete/:id", authRole, adminController.deleteCategory);
 
 module.exports = router;

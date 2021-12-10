@@ -24,9 +24,11 @@ exports.getDashboard = async (req, res, next) => {
 // categories
 exports.getCategories = async (req, res, next) => {
   try {
+    const category = await Category.find();
     // Render template
     return res.status(200).render("admin/pages/category/category", {
       title: "Categories",
+      category: category,
     });
   } catch (err) {
     return res.status(404).json({ status: "fail", message: err });
@@ -217,7 +219,19 @@ exports.postAddProduct = async (req,res,next) => {
 
   next();
 }
-
+//Update cate 
+exports.putUpdateCate = async(req,res,next) => {
+  let category
+  try {
+    category = await Category.findById(req.params.id);
+    category.name = req.body.cateName;
+    await category.save()
+    return res.redirect("/admin/categories?status=Success")
+  } catch (err) {
+    console.log(err)
+    return res.redirect("/admin/?status=Fail")
+  }
+}
 //Update
 exports.putUpdateProduct = async(req,res,next) => {
   let product
@@ -274,6 +288,17 @@ exports.deleteOrder = async (req,res) => {
     return res.send("success");
   } catch (error) {
     return res.send(error);
+  }
+}
+
+exports.deleteCategory = async (req,res) => {
+  let category
+  try {
+    category = await Category.findById(req.params.id);
+    await category.remove();
+    return res.redirect("/admin/categories?status=Success");
+  } catch (error) {
+    return res.redirect("/admin/categories?status=Fail");
   }
 }
 
