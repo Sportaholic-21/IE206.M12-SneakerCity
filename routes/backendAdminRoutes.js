@@ -9,9 +9,11 @@ router.post("/product/add",adminController.postAddProduct);
 router.put("/product/edit/:id",adminController.putUpdateProduct);
 
 //~~~~~~~~USER~~~~~~~~~~~~
+router.post("/user/add", adminController.postAddUser)
 
 //~~~~~~~~Category~~~~~~~~~
 router.put("/categories", adminController.putUpdateCate);
+router.post("/category/add",adminController.postAddCate)
 router.delete("/category/delete/", adminController.deleteCategory);
 
 //~~~~~~~~ORDER~~~~~~~~~~~

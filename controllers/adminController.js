@@ -3,8 +3,8 @@ const {Category} = require("../models/categoryModel")
 const {Transaction} = require("../models/transactionModel")
 const imageMimeTypes = ["image/jpeg", "image/png", "image/gif", "image/jpg"];
 const {User} = require("../models/userModel");
-const { Router } = require('express');
-const { mongo } = require('mongoose');
+const bcrypt = require('bcryptjs');
+
 exports.getDashboard = async (req, res, next) => {
   try {
     // Render template
@@ -218,6 +218,45 @@ exports.postAddProduct = async (req,res,next) => {
   }
 
   next();
+}
+
+exports.postAddUser = async(req, res) => {
+  const user = req.body
+  const newUser = new User({
+    fullName: user.fullName,
+    userName: user.userName,
+    email: user.email,
+    phone: user.phone,
+    password: user.password,
+    role: parseInt(user.role)
+  })
+
+  bcrypt.genSalt(10, (err, salt) => {
+    bcrypt.hash(newUser.password, salt, (err, hash) => {
+      if (err) throw err;
+      newUser.password = hash;
+      newUser
+        .save()
+        .then(User => {
+          return res.redirect('/admin/users');
+        })
+        .catch((err) => console.log(err));
+    });
+  });
+
+}
+
+
+exports.postAddCate = async(req,res) => {
+  const cate = new Category({
+    name: req.body.cateName
+  })
+  try {
+    await cate.save()
+    return res.redirect("/admin/categories")
+  } catch (e) {
+    return res.status(404).json({ status: "fail", message: e });
+  }
 }
 //Update cate 
 exports.putUpdateCate = async(req,res,next) => {
