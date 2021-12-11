@@ -99,20 +99,23 @@ exports.updateCart = async (req, res, next) => {
 exports.updateUser = async (req,res,next) => {
   let user
   try {
-    user = await User.findOne(req.body.userName);
+    user = await User.findOne({userName: req.params.userName});
     console.log("hi",user);
-    user.fullName = req.body.FullName;
-    user.phone = req.body.PhoneNum;
-    user.email = req.body.Email;
-    user.address= {country: req.body.Country, city: req.body.City, detail: req.body.Detail};
-    // user.address.city = req.body.City;
-    // user.address.detail = req.body.Detail;
+    user.fullName = req.body.fullname;
+    user.phone = req.body.phone;
+    user.email = req.body.email;
+    //user.address= {country: req.body.Country, city: req.body.City, detail: req.body.Detail};
+    user.address.city = req.body.address.city;
+    user.address.country = req.body.address.country;
+    user.address.state = req.body.address.state;
+    user.address.detail = req.body.address.detail;
     console.log("sau khi edit", user);
+    req.session.user = user
     await user.save()
-    return res.redirect("/account?status=Success");
+    return res.json("success");
   } catch (err){
     console.log(err)
-    return res.redirect("/account?status=Fail")
+    return res.json("fail")
   } 
 };
 

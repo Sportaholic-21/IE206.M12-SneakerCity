@@ -1,124 +1,134 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <%- include('../partials/head'); -%>
-  </head>
-  <body>
-    <%- include('../partials/nav'); -%>
+
+<head>
+  <%- include('../partials/head'); -%>
+</head>
+
+<body>
+  <%- include('../partials/nav'); -%>
     <div class="container">
       <div class="right_flex_container">
         <div class="account__text">
           <h3>My account</h3>
         </div>
         <hr />
-        <% if (session.user && typeof session.user != 'undefined') {%>
-        <form
-        class="needs-validation" method="POST"
-        action="/client/api/account/updateUser"
-        >
-          <div class="info_container_style">
-            <div class="d-flex">
-              <div class="info_container_style mr-5">
-                <label for="username">Username:</label><br />
-                <input
-                  type="text"
-                  id="UsrName"
-                  name="Username"
-                  class="text_info_style"
-                  value="<%= session.user.userName %>"
-                  readonly
-                />
-              </div>
+        <% if (session.user && typeof session.user !='undefined' ) {%>
+          <form class="needs-validation" method="POST"
+            action="/client/api/account/<%= session.user.userName %>/updateUser?_method=PUT">
+            <div class="info_container_style">
+              <div class="d-flex">
+                <div class="info_container_style mr-5">
+                  <label for="username">Username:</label><br />
+                  <input type="text" id="UsrName" name="Username" class="text_info_style"
+                    value="<%= session.user.userName %>" readonly />
+                </div>
                 <div class="info_container_style">
                   <label for="FullName">Full name:</label><br />
-                  <input
-                    type="text"
-                    id="FullName"
-                    value="<%= session.user.fullName %>"
-                    name="FullName"
-                    class="text_info_style"
-                  />
+                  <input type="text" id="name" name="FullName" class="text_info_style" />
                 </div>
-            </div>
-
-            <div class="d-flex">
-              <div class="info_container_style mr-5">
-                <label for="Phone_number">Phone number:</label><br />
-                <input
-                  type="text"
-                  id="PhoneNum"
-                  value="<%= session.user.phone %>"
-                  name="PhoneNum"
-                  class="text_info_style"
-                />
               </div>
 
-              <div class="info_container_style">
-                <label for="email_info">Email:</label><br />
-                <input type="hidden" name="oEmail" value=" " />
-                <input
-                  type="text"
-                  id="Email"
-                  name="Email"
-                  value="<%= session.user.email %>"
-                  class="text_info_style"
-                />
-              </div>
-            </div>
+              <div class="d-flex">
+                <div class="info_container_style mr-5">
+                  <label for="Phone_number">Phone number:</label><br />
+                  <input type="text" id="phone" name="PhoneNum" class="text_info_style" />
+                </div>
 
-            <div class="d-flex">
-              <div class="info_container_style mr-5">
-                <label for="addr_info">Country:</label><br />
-                <input
-                  type="text"
-                  name="country"
-                  id="Country"
-                  value="<%= session.user.address.country%>"
-                  class="address_info_style"
-                />
+                <div class="info_container_style">
+                  <label for="email_info">Email:</label><br />
+                  <input type="text" id="email" name="Email" class="text_info_style" />
+                </div>
               </div>
 
-              <div class="info_container_style">
-                <label for="addr_info">City:</label><br />
-                <input
-                  type="text"
-                  id="City"
-                  name="city"
-                  class="address_info_style"
-                  value="<%= session.user.address.city%>"
-                />
-              </div>
-            </div>
+              <div class="d-flex">
+                <div class="info_container_style mr-5">
+                  <label for="address-country-field">Country:</label><br />
+                  <select class="text_info_style" id="address-country-field">
+                    <option value="default" selected disabled>Country</option>
+                    <% countries.forEach(country=> { %>
+                      <option value="<%= country['isoCode'] %>">
+                        <%= country['name'] %>
+                      </option>
+                      <% }); %>
+                  </select>
+                </div>
 
-            <div class="d-flex">
-              <div class="info_container_style mr-5">
-                <label for="addr_info">Districts:</label><br />
-                <input
-                  type="text"
-                  name="detail"
-                  id="Detail"
-                  class="address_info_style"
-                  value="<%= session.user.address.detail %>"
-                />
+                <div class="info_container_style mr-5">
+                  <label for="address-state-field">State</label><br />
+                  <select class="text_info_style" id="address-state-field">
+                    <option value="default" data-code="null" value="null" selected disabled>State
+                    </option>
+                  </select>
+                </div>
               </div>
 
-              <div class="info_container_style">
-                <label for="addr_info">Address:</label><br />
-                <input
-                  type="text"id="AddrInfo"
-                  name="AddrInfo"
-                  value="<%= session.user.address.detail%>, <%= session.user.address.city%>, <%= session.user.address.country%>"
-                  class="address_info_style"
-                />
+              <div class="d-flex">
+                <div class="info_container_style mr-5">
+                  <label for="">City</label><br />
+                  <select class="text_info_style" id="address-city-field">
+                    <option value="default" data-code="null" value="null" selected disabled>City
+                    </option>
+                  </select>
+                </div>
+
+
+                <div class="info_container_style">
+                  <label for="addr_info">Address:</label><br />
+                  <input type="text" id="address-detail-field" name="AddrInfo"
+                    class="address_info_style" />
+                </div>
               </div>
-            </div>
-          <button type="submit">Save</button>
-        </form>
-      <% } %>
+
+              <button type="submit">Save</button>
+          </form>
+          <% } %>
       </div>
     </div>
-  </div>
-    <%- include('../partials/footer'); -%> <%-
-    include('../partials/script-line'); -%>
-  </body>
+    </div>
+    <%- include('../partials/footer'); -%>
+      <%- include('../partials/script-line'); -%>
+</body>
+<script src="/js/autoLoadLocation.js"></script>
+<script>
+  const delay = ms => new Promise(res => setTimeout(res, ms));
+  async function fillUserDetail() {
+    if (typeof '<%- session.user%>' != "undefined") {
+      $("#name").val('<%- session.user.fullName%>');
+      $("#email").val('<%- session.user.email%>')
+      $("#phone").val('<%- session.user.phone%>')
+      if (typeof '<%- session.user.address%>' != "undefined" && !('<%-session.user.address%>' === "")) {
+        $("#address-detail-field").val('<%- session.user.address.detail%>')
+        $("#address-country-field").val("<%- session.user.address.country %>").change();
+        await delay(400);
+        $("#address-state-field").val("<%- session.user.address.state %>").change();
+        await delay(400);
+        $("#address-city-field").val("<%- session.user.address.city %>").change();
+      } else return;
+    }
+  }
+  $(document).ready(() => {
+    fillUserDetail()
+  })
+</script>
+<script>
+  $('form').on("submit", async function (e) {
+    e.preventDefault();
+    await axios.post("/client/api/account/<%= session.user.userName %>/updateUser?_method=PUT", {
+      fullname: $("#name").val(),
+      email: $("#email").val(),
+      phone: $("#phone").val(),
+      address: {
+        detail: $("#address-detail-field").val(),
+        city: $("#address-city-field").val(),
+        state: $("#address-state-field").val(),
+        country: $("#address-country-field").val()
+      }
+    }).then((res) => {
+      if(res.data == "success") window.location = "/account"
+    })
+    
+  })
+</script>
+
 </html>

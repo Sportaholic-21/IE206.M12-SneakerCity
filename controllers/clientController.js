@@ -160,8 +160,16 @@ exports.getShoeSizePage = async (req, res, next) => {
 exports.getAccount = async (req, res, next) => {
   try {
     // Render template
+    const countries = 
+    countryStateCity.Country.getAllCountries()
+    .map(country => 
+      new Object({
+      "isoCode": country["isoCode"], 
+      "name": country["name"]
+    }));
     return res.status(200).render("pages/account", {
       title: "Account",
+      countries: countries
     });
   } catch (err) {
     return res.status(404).json({ status: "fail", message: err });

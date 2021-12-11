@@ -2,7 +2,7 @@ const backendClientController = require("../controllers/backendClientController"
 const express = require("express");
 const router = express.Router();
 
-router.post("/account/updateUser", backendClientController.updateUser);
+router.put("/account/:userName/updateUser", backendClientController.updateUser);
 
 router
   .route("/cart/:id")
