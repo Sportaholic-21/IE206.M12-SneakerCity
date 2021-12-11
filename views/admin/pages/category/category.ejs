@@ -1,58 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <%- include('../../template/header.ejs'); -%>
-  </head>
-  <body>
-    <div class="d-flex h-100">
-      <div class="col-2 pl-0 h-100 w-25 fixed-top">
-        <%- include('../../template/sidebar.ejs'); -%>
-      </div>
-      <div class="col-12 w-100 pr-0">
-        <%- include('../../template/navbar.ejs'); -%>
+
+<head>
+  <%- include('../../template/header.ejs'); -%>
+</head>
+
+<body>
+  <div class="d-flex h-100">
+    <div class="col-2 pl-0 h-100 w-25 fixed-top">
+      <%- include('../../template/sidebar.ejs'); -%>
+    </div>
+    <div class="col-12 w-100 pr-0">
+      <%- include('../../template/navbar.ejs'); -%>
         <div class="col-10 ml-auto">
           <div class="d-flex justify-content-between">
             <h1 class="text-primary">Categories</h1>
             <form class="form-inline my-2 my-lg-0">
-              <input
-                class="form-control mr-sm-2"
-                type="search"
-                placeholder="Search"
-                aria-label="Search"
-              />
-              <button
-                class="btn btn-outline-primary my-2 my-sm-0"
-                type="submit"
-              >
+              <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" />
+              <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">
                 Search
               </button>
             </form>
           </div>
 
           <h4 class="text-info pb-2">Add category</h4>
-          <form
-            class="ml-1 cate needs-validation"
-            action="/admin/api/category/add"
-            method="POST"
-            novalidate
-          >
+          <form class="ml-1 cate needs-validation" action="/admin/api/category/add" method="POST" novalidate>
             <div class="form-group row">
               <label for="cateName" class="col-1">Name: </label>
               <div class="col-3">
-                <input
-                  type="text"
-                  name="cateName"
-                  id="cateName"
-                  class="form-control"
-                  required
-                />
+                <input type="text" name="cateName" id="cateName" class="form-control" required />
                 <div class="invalid-feedback">Please fill in this field!</div>
               </div>
-              <button
-                class="btn btn-primary col-1 submit"
-                type="submit"
-                style="height: 38px"
-              >
+              <button class="btn btn-primary col-1 submit" type="submit" style="height: 38px">
                 Add
               </button>
             </div>
@@ -64,101 +43,81 @@
               <th>Category Name</th>
               <th>&nbsp;</th>
             </tr>
-            <% category.forEach(category =>{ %>
-            <tr>
-              <td><%=category.name%></td>
-              <td></td>
-              <td>
-                <button class="btn btn-success" data-toggle="modal" data-target="#Edit">Edit</button>
-                <button
-                  class="btn btn-danger ml-2 deleteBtn"
-                  id="deleteBtn"
-                  data-toggle="modal"
-                  data-target="#exampleModal"
-                  data-id="<%= category.id %>"
-                  data-name="<%= category.name %>"
-                  data-link="category/"
-                >
-                  Delete
-                </button>
-                
-              </td>
-            </tr>
-            <% }) %>
+            <% category.forEach(category=>{ %>
+              <tr>
+                <td>
+                  <%=category.name%>
+                </td>
+                <td></td>
+                <td>
+                  <!-- <button class="btn btn-success btn-save" data-toggle="modal" data-id="<%= category.id %>"
+                    data-name="<%= category.name %>" data-link="/admin/api/category/" data-target="#Edit">Edit</button> -->
+                  <button class="btn btn-danger ml-2 deleteBtn" id="deleteBtn" data-toggle="modal"
+                    data-target="#exampleModal" data-id="<%= category.id %>" data-name="<%= category.name %>"
+                    data-link="category/">
+                    Delete
+                  </button>
+
+                </td>
+              </tr>
+              <% }) %>
           </table>
         </div>
-      </div>
     </div>
-    <!-- Delete modal -->
-    <div
-      class="modal fade"
-      id="exampleModal"
-      tabindex="-1"
-      role="dialog"
-      aria-labelledby="exampleModalLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Xác nhận xóa</h5>
-            <button
-              type="button"
-              class="close"
-              data-dismiss="modal"
-              aria-label="Close"
-            >
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            Chắc chắn xóa Category<span id="idTeam"></span>?
-          </div>
-          <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-secondary"
-              data-dismiss="modal"
-            >
-              Close
-            </button>
-            <form method="post" id="deleteBtnHref">
-              <input type="submit" class="btn btn-danger" value="Xóa" />
-            </form>
-          </div>
+  </div>
+  <!-- Delete modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Xác nhận xóa</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          Chắc chắn xóa Category<span id="idTeam"></span>?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">
+            Close
+          </button>
+          <form method="post" id="deleteBtnHref">
+            <input type="submit" class="btn btn-danger" value="Xóa" />
+          </form>
         </div>
       </div>
     </div>
-    <!--Popup-->
-    <div class="modal fade" id="Edit" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-              <div class="form-group mx-sm-3 mb-2" >
-                <label for="cateName">Category</label>
-                <input type="text" class="form-control" id="cateName" placeholder="Enter new category name">
-            </form>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="submit" id="btnSave" class="btn btn-primary btn-save" 
-            data-id="cateName"
-            data-name="<%= category.name %>" 
-            data-link="category/"
-            >Save changes</button>
-          </div>
+  </div>
+  <!--Popup-->
+  <div class="modal fade" id="Edit" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Chỉnh sửa Category <span id="idTeam"></span></h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
         </div>
+        <form method="POST">
+          <div class="modal-body">
+            <div class="form-group mx-sm-3 mb-2">
+              <label for="cateName">Category</label>
+              <input type="text" class="form-control" id="cateName" placeholder="Enter new category name">
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <input type="submit" id="btnSave" class="btn btn-primary btn-save" value="Save changes"></input>
+            </div>
+          </div>
+        </form>
       </div>
     </div>
-  </body>
-  <%- include('../../template/footer.ejs'); -%>
-  <script> 
+</body>
+<%- include('../../template/footer.ejs'); -%>
+  <script>
     $(document).on("click", ".deleteBtn", function () {
       var id = $(this).data("id");
       var name = $(this).data("name");
@@ -171,17 +130,19 @@
       $("#exampleModal #idTeam").text(name);
     });
   </script>
-  <script> 
-    $(document).on("click", ".btn-save", function () {
+  <script>
+    $('.btn-save').on("click", function() {
       var id = $(this).data("id");
       var name = $(this).data("name");
-      //alert(name);
       var link = $(this).data("link");
-      $("#Edit #btnSave").attr(
+      var editLink = link + "edit/" + id +"?_method=PUT"
+      console.log(editLink)
+      $("#Edit form").attr(
         "action",
-        link + "edit/" + id 
+        editLink
       );
       $("#Edit #idTeam").text(name);
     });
   </script>
+
 </html>

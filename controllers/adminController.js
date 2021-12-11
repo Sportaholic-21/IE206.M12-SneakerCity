@@ -265,7 +265,7 @@ exports.putUpdateCate = async(req,res,next) => {
     category = await Category.findById(req.params.id);
     category.name = req.body.cateName;
     await category.save()
-    return res.redirect("/admin/categories?status=Success")
+    return res.redirect("/admin/categories")
   } catch (err) {
     console.log(err)
     return res.redirect("/admin/?status=Fail")
